@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
-import { useAuth } from '../hooks/useAuth';
 
 const TransportRouteForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { isAdmin } = useAuth();
   const [materials, setMaterials] = useState([]);
   const [formData, setFormData] = useState({
     material: searchParams.get('material') || '',
@@ -27,15 +25,11 @@ const TransportRouteForm = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (!isAdmin) {
-      navigate('/transport');
-      return;
-    }
     fetchMaterials();
     if (id) {
       fetchRoute();
     }
-  }, [id, isAdmin, navigate]);
+  }, [id]);
 
   const fetchMaterials = async () => {
     try {
@@ -263,4 +257,5 @@ const TransportRouteForm = () => {
 };
 
 export default TransportRouteForm;
+
 

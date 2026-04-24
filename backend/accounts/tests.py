@@ -15,3 +15,4 @@ class UserModelTest(TestCase):
         self.assertEqual(user.role, 'user')
         self.assertTrue(user.check_password('testpass123'))
 
+

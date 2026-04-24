@@ -28,3 +28,4 @@ class MaterialModelTest(TestCase):
         self.assertEqual(material.quantity, 100)
         self.assertEqual(material.status, 'available')
 
+

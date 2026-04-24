@@ -5,10 +5,10 @@ import { useAuth } from '../hooks/useAuth';
 
 const MaterialDetail = () => {
   const { id } = useParams();
+  const { isAdmin } = useAuth();
   const [material, setMaterial] = useState(null);
   const [routes, setRoutes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { isAdmin } = useAuth();
 
   useEffect(() => {
     fetchMaterial();
@@ -47,11 +47,9 @@ const MaterialDetail = () => {
     <div>
       <div className="page-header">
         <h1 className="page-title">{material.name}</h1>
-        {isAdmin && (
-          <Link to={`/materials/${id}/edit`} className="btn btn-primary">
-            Өңдеу
-          </Link>
-        )}
+        <Link to={`/materials/${id}/edit`} className="btn btn-primary">
+          ✏️ Өңдеу
+        </Link>
       </div>
 
       <div className="card">
@@ -113,12 +111,11 @@ const MaterialDetail = () => {
                   <td>{route.destination_location}</td>
                   <td>{route.quantity}</td>
                   <td>{route.status}</td>
-                  <td>{new Date(route.planned_date).toLocaleDateString('kk-KZ')}</td>
+                  <td>{route?.planned_date ? new Date(route.planned_date).toLocaleDateString('kk-KZ') : '-'}</td>
                   <td>
                     <Link
                       to={`/transport/${route.id}`}
-                      className="btn btn-primary"
-                      style={{ padding: '5px 10px', fontSize: '14px' }}
+                      className="btn btn-primary btn-sm"
                     >
                       Көру
                     </Link>
@@ -139,7 +136,7 @@ const MaterialDetail = () => {
         )}
       </div>
 
-      <Link to="/materials" className="btn btn-primary" style={{ marginTop: '20px' }}>
+      <Link to="/materials" className="btn btn-primary" style={{ marginTop: '20px', display: 'inline-block' }}>
         Артқа
       </Link>
     </div>
@@ -147,4 +144,5 @@ const MaterialDetail = () => {
 };
 
 export default MaterialDetail;
+
 

@@ -90,3 +90,4 @@ docker-compose exec backend python manage.py createsuperuser
 
 Мәселелер туындаған жағдайда `SETUP.md` файлын қараңыз.
 
+

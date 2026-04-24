@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useAuth } from '../hooks/useAuth';
 
 const MaterialForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { isAdmin } = useAuth();
   const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
@@ -24,15 +22,11 @@ const MaterialForm = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (!isAdmin) {
-      navigate('/materials');
-      return;
-    }
     fetchCategories();
     if (id) {
       fetchMaterial();
     }
-  }, [id, isAdmin, navigate]);
+  }, [id]);
 
   const fetchCategories = async () => {
     try {
@@ -228,4 +222,5 @@ const MaterialForm = () => {
 };
 
 export default MaterialForm;
+
 

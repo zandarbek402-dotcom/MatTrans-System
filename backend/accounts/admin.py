@@ -14,3 +14,4 @@ class UserAdmin(BaseUserAdmin):
         ('Қосымша ақпарат', {'fields': ('role', 'phone', 'email')}),
     )
 
+

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import Contacts from '../components/Contacts';
 
 const exportToCSV = () => {
   window.open('/api/materials/export/', '_blank');
@@ -14,23 +14,17 @@ const Materials = () => {
   const [statusFilter, setStatusFilter] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
   const [categories, setCategories] = useState([]);
-  const { isAdmin } = useAuth();
 
-  useEffect(() => {
-    fetchCategories();
-    fetchMaterials();
-  }, [statusFilter, categoryFilter]);
-
-  const fetchCategories = async () => {
+  const fetchCategories = useCallback(async () => {
     try {
       const response = await axios.get('/api/materials/categories/');
       setCategories(response.data.results || response.data);
     } catch (error) {
       console.error('Failed to fetch categories:', error);
     }
-  };
+  }, []);
 
-  const fetchMaterials = async () => {
+  const fetchMaterials = useCallback(async () => {
     try {
       setLoading(true);
       const params = {};
@@ -45,7 +39,12 @@ const Materials = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [statusFilter, categoryFilter, searchTerm]);
+
+  useEffect(() => {
+    fetchCategories();
+    fetchMaterials();
+  }, [fetchCategories, fetchMaterials]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -87,11 +86,9 @@ const Materials = () => {
           <button onClick={exportToCSV} className="btn btn-success">
             📥 Экспорт (CSV)
           </button>
-          {isAdmin && (
-            <Link to="/materials/new" className="btn btn-primary">
-              ➕ Материал қосу
-            </Link>
-          )}
+          <Link to="/materials/new" className="btn btn-primary">
+            ➕ Материал қосу
+          </Link>
         </div>
       </div>
 
@@ -161,32 +158,25 @@ const Materials = () => {
                     </td>
                     <td>{material.location || '—'}</td>
                     <td>
-                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                      <div className="btn-group">
                         <Link
                           to={`/materials/${material.id}`}
-                          className="btn btn-primary"
-                          style={{ padding: '6px 12px', fontSize: '13px' }}
+                          className="btn btn-primary btn-sm"
                         >
                           👁️ Көру
                         </Link>
-                        {isAdmin && (
-                          <>
-                            <Link
-                              to={`/materials/${material.id}/edit`}
-                              className="btn btn-success"
-                              style={{ padding: '6px 12px', fontSize: '13px' }}
-                            >
-                              ✏️ Өңдеу
-                            </Link>
-                            <button
-                              onClick={() => handleDelete(material.id)}
-                              className="btn btn-danger"
-                              style={{ padding: '6px 12px', fontSize: '13px' }}
-                            >
-                              🗑️ Жою
-                            </button>
-                          </>
-                        )}
+                        <Link
+                          to={`/materials/${material.id}/edit`}
+                          className="btn btn-success btn-sm"
+                        >
+                          ✏️ Өңдеу
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(material.id)}
+                          className="btn btn-danger btn-sm"
+                        >
+                          🗑️ Жою
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -196,6 +186,7 @@ const Materials = () => {
           </tbody>
         </table>
       </div>
+      <Contacts />
     </div>
   );
 };

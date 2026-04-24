@@ -98,3 +98,4 @@ jobs:
     - name: Build Docker image
       run: docker build -t conmat-transport:latest .
 
+

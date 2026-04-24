@@ -1,72 +1,65 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
 const Navbar = () => {
-  const { user, logout, isAdmin } = useAuth();
-  const navigate = useNavigate();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const { user, logout } = useAuth();
 
-  const handleLogout = async () => {
-    await logout();
-    navigate('/login');
+  const navLinks = [
+    { path: '/', label: '📊 Дашборд' },
+    { path: '/materials', label: '📦 Материалдар' },
+    { path: '/routes', label: '🗺️ Маршруттар' },
+    { path: '/transport', label: '🚛 Көлік' },
+    { path: '/orders', label: '📋 Тапсырыстар' },
+    { path: '/tracking', label: '🎯 Бақылау' },
+  ];
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
   };
 
-  if (!user) {
-    return null;
-  }
+  const isActive = (path) => {
+    if (path === '/') {
+      return location.pathname === '/';
+    }
+    return location.pathname.startsWith(path);
+  };
 
   return (
     <nav className="navbar">
-      <div className="navbar-content">
-        <Link to="/dashboard" className="navbar-brand">
-          ConMat Transport
+      <div className="navbar-container">
+        <Link to="/" className="navbar-logo">
+          <span className="logo-icon">🚛</span>
+          <span className="logo-text">ConMat</span>
         </Link>
-        <button 
-          className="mobile-menu-toggle"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          style={{
-            display: 'none',
-            background: 'transparent',
-            border: 'none',
-            color: 'white',
-            fontSize: '24px',
-            cursor: 'pointer'
-          }}
-        >
-          {mobileMenuOpen ? '✕' : '☰'}
-        </button>
-        <div className={`navbar-links ${mobileMenuOpen ? 'mobile-open' : ''}`}>
-          <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)}>
-            🏠 Басты бет
-          </Link>
-          <Link to="/materials" onClick={() => setMobileMenuOpen(false)}>
-            📦 Материалдар
-          </Link>
-          <Link to="/transport" onClick={() => setMobileMenuOpen(false)}>
-            🚛 Тасымал маршруттары
-          </Link>
-          {isAdmin && (
-            <Link to="/materials/new" onClick={() => setMobileMenuOpen(false)}>
-              ➕ Материал қосу
+
+        <div className={`navbar-menu ${menuOpen ? 'active' : ''}`}>
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              to={link.path}
+              className={`navbar-link ${isActive(link.path) ? 'active' : ''}`}
+              onClick={() => setMenuOpen(false)}
+            >
+              {link.label}
+            </Link>
+          ))}
+          {user ? (
+            <button onClick={logout} className="btn btn-danger btn-sm">
+              🚪 Шығу
+            </button>
+          ) : (
+            <Link to="/login" className="btn btn-primary btn-sm">
+              🔐 Кіру
             </Link>
           )}
-          {isAdmin && (
-            <Link to="/transport/new" onClick={() => setMobileMenuOpen(false)}>
-              ➕ Маршрут қосу
-            </Link>
-          )}
-          <Link to="/profile" onClick={() => setMobileMenuOpen(false)}>
-            👤 Профиль
-          </Link>
-          <span className="user-info">
-            👋 {user.username}
-            {isAdmin && <span className="badge badge-success" style={{marginLeft: '8px', fontSize: '10px'}}>Admin</span>}
-          </span>
-          <button onClick={handleLogout}>
-            🚪 Шығу
-          </button>
         </div>
+
+        <button className="navbar-toggle" onClick={toggleMenu}>
+          <span className={`hamburger ${menuOpen ? 'active' : ''}`}></span>
+        </button>
       </div>
     </nav>
   );

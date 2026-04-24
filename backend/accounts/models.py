@@ -31,3 +31,4 @@ class User(AbstractUser):
     def is_admin(self):
         return self.role == 'admin' or self.is_superuser
 
+

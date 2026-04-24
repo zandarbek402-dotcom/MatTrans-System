@@ -1,20 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
 
 const TransportRoutes = () => {
   const [routes, setRoutes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
-  const { isAdmin } = useAuth();
 
-  useEffect(() => {
-    fetchRoutes();
-  }, [statusFilter]);
-
-  const fetchRoutes = async () => {
+  const fetchRoutes = useCallback(async () => {
     try {
       setLoading(true);
       const params = {};
@@ -28,7 +22,11 @@ const TransportRoutes = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [statusFilter, searchTerm]);
+
+  useEffect(() => {
+    fetchRoutes();
+  }, [fetchRoutes]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -66,11 +64,9 @@ const TransportRoutes = () => {
     <div className="fade-in">
       <div className="page-header">
         <h1 className="page-title">🚛 Тасымал маршруттары</h1>
-        {isAdmin && (
-          <Link to="/transport/new" className="btn btn-primary">
-            ➕ Маршрут қосу
-          </Link>
-        )}
+        <Link to="/transport/new" className="btn btn-primary">
+          ➕ Маршрут қосу
+        </Link>
       </div>
 
       <form onSubmit={handleSearch} className="search-filter-bar">
@@ -130,23 +126,19 @@ const TransportRoutes = () => {
                     </td>
                     <td>{new Date(route.planned_date).toLocaleDateString('kk-KZ')}</td>
                     <td>
-                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                      <div className="btn-group">
                         <Link
                           to={`/transport/${route.id}`}
-                          className="btn btn-primary"
-                          style={{ padding: '6px 12px', fontSize: '13px' }}
+                          className="btn btn-primary btn-sm"
                         >
                           👁️ Көру
                         </Link>
-                        {isAdmin && (
-                          <button
-                            onClick={() => handleDelete(route.id)}
-                            className="btn btn-danger"
-                            style={{ padding: '6px 12px', fontSize: '13px' }}
-                          >
-                            🗑️ Жою
-                          </button>
-                        )}
+                        <button
+                          onClick={() => handleDelete(route.id)}
+                          className="btn btn-danger btn-sm"
+                        >
+                          🗑️ Жою
+                        </button>
                       </div>
                     </td>
                   </tr>

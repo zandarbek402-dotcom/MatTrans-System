@@ -33,3 +33,4 @@ class TransportRouteModelTest(TestCase):
         self.assertEqual(route.origin_location, 'Location A')
         self.assertEqual(route.status, 'planned')
 
+

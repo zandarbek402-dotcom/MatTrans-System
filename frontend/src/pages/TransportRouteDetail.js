@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import { useAuth } from '../hooks/useAuth';
 
 const TransportRouteDetail = () => {
   const { id } = useParams();
   const [route, setRoute] = useState(null);
   const [loading, setLoading] = useState(true);
   const [history, setHistory] = useState([]);
-  const { isAdmin } = useAuth();
 
   useEffect(() => {
     fetchRoute();
@@ -38,11 +36,9 @@ const TransportRouteDetail = () => {
     <div>
       <div className="page-header">
         <h1 className="page-title">Тасымал маршруты</h1>
-        {isAdmin && (
-          <Link to={`/transport/${id}/edit`} className="btn btn-primary">
-            Өңдеу
-          </Link>
-        )}
+        <Link to={`/transport/${id}/edit`} className="btn btn-primary">
+          ✏️ Өңдеу
+        </Link>
       </div>
 
       <div className="card">
@@ -135,4 +131,5 @@ const TransportRouteDetail = () => {
 };
 
 export default TransportRouteDetail;
+
 

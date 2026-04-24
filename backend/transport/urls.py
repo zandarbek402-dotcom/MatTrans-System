@@ -17,3 +17,4 @@ urlpatterns = [
     path('history/<int:pk>/', TransportHistoryDetailView.as_view(), name='history-detail'),
 ]
 
+

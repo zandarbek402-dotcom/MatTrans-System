@@ -8,3 +8,4 @@ def update_material_status(sender, instance, created, **kwargs):
     """Материал сақталған кезде сигнал"""
     pass
 
+

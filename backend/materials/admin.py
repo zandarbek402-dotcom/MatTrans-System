@@ -15,3 +15,4 @@ class MaterialAdmin(admin.ModelAdmin):
     search_fields = ['name', 'description', 'location', 'supplier']
     readonly_fields = ['created_at', 'updated_at']
 
+

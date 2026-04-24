@@ -5,7 +5,7 @@
 }
 
 :root {
-  /* Түс палитрасы */
+  /* Жаңа түс палитрасы - Glassmorphism стилі */
   --primary-color: #6366f1;
   --primary-dark: #4f46e5;
   --primary-light: #818cf8;
@@ -17,53 +17,60 @@
   --info-color: #3b82f6;
   --success-color: #10b981;
   
-  /* Градиенттер */
+  /* Жаңа градиенттер */
   --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --gradient-secondary: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  --gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --gradient-dark: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   --gradient-warm: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  --gradient-cool: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
   
-  /* Фон түстері */
-  --bg-primary: #f8fafc;
-  --bg-secondary: #ffffff;
-  --bg-dark: #1e293b;
-  --bg-card: #ffffff;
+  /* Glassmorphism фондары */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: rgba(30, 41, 59, 0.7);
+  --bg-glass: rgba(255, 255, 255, 0.1);
+  --bg-glass-hover: rgba(255, 255, 255, 0.15);
   
   /* Текст түстері */
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
-  --text-light: #94a3b8;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-light: #64748b;
   --text-white: #ffffff;
   
-  /* Тени */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  /* Тени - жаңа үлкен тендер */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.3);
   
   /* Border radius */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 30px;
   
   /* Transition */
-  --transition-fast: 0.15s ease;
-  --transition-base: 0.3s ease;
-  --transition-slow: 0.5s ease;
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+  background: linear-gradient(-45deg, #0f172a, #1e3a8a, #312e81, #0f172a);
   background-size: 400% 400%;
   animation: gradientShift 15s ease infinite;
   min-height: 100vh;
+  color: var(--text-primary);
+  overflow-x: hidden;
 }
 
 @keyframes gradientShift {
@@ -73,95 +80,146 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: 'JetBrains Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
 .container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 30px 20px;
+  padding: 40px 24px;
 }
 
-/* Кнопкалар */
+.main-content {
+  padding-top: 80px;
+  min-height: calc(100vh - 80px);
+}
+
+/* ========== КӘСІБИ БАТЫРМАЛАР ========== */
 .btn {
-  padding: 12px 24px;
-  border: none;
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 600;
-  transition: all var(--transition-base);
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
   text-decoration: none;
-  box-shadow: var(--shadow-md);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
   position: relative;
   overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 44px;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
 }
 
-.btn::before {
+/* Негізгі батырма эффектісі */
+.btn::after {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.btn:hover::before {
-  width: 300px;
-  height: 300px;
+.btn:hover::after {
+  opacity: 1;
 }
 
 .btn:active {
-  transform: scale(0.98);
+  transform: scale(0.96) translateY(1px);
 }
 
+/* Primary - Негізгі батырма */
 .btn-primary {
-  background: var(--gradient-primary);
-  color: var(--text-white);
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #4338ca 100%);
+  color: white;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4), 0 1px 3px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .btn-primary:hover {
+  background: linear-gradient(135deg, #818cf8 0%, #6366f1 50%, #4f46e5 100%);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
 }
 
+/* Success - Сәттілік батырмасы */
 .btn-success {
-  background: linear-gradient(135deg, var(--success-color) 0%, var(--secondary-dark) 100%);
-  color: var(--text-white);
+  background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+  color: white;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4), 0 1px 3px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .btn-success:hover {
+  background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
 }
 
+/* Danger - Қауіп батырмасы */
 .btn-danger {
-  background: linear-gradient(135deg, var(--danger-color) 0%, var(--danger-dark) 100%);
-  color: var(--text-white);
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+  color: white;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4), 0 1px 3px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .btn-danger:hover {
+  background: linear-gradient(135deg, #f87171 0%, #ef4444 50%, #dc2626 100%);
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
 }
 
+/* Secondary - Қосымша батырма */
 .btn-secondary {
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-  border: 2px solid var(--primary-color);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .btn-secondary:hover {
-  background: var(--primary-color);
-  color: var(--text-white);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Кішкентай батырмалар */
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 13px;
+  min-height: 36px;
+  border-radius: 10px;
+}
+
+/* Үлкен батырмалар */
+.btn-lg {
+  padding: 16px 32px;
+  font-size: 16px;
+  min-height: 52px;
+  border-radius: 14px;
+}
+
+/* Толық ені батырма */
+.btn-block {
+  width: 100%;
+}
+
+/* Батырма тобы */
+.btn-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 /* Формалар */
@@ -181,13 +239,18 @@ code {
 .form-group select,
 .form-group textarea {
   width: 100%;
-  padding: 12px 16px;
-  border: 2px solid #e2e8f0;
+  padding: 14px 18px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-md);
   font-size: 16px;
   transition: all var(--transition-base);
-  background: var(--bg-secondary);
+  background: rgba(15, 23, 42, 0.5);
   color: var(--text-primary);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-light);
 }
 
 .form-group input:focus,
@@ -195,7 +258,7 @@ code {
 .form-group textarea:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), var(--shadow-glow);
 }
 
 .form-group textarea {
@@ -204,68 +267,113 @@ code {
   font-family: inherit;
 }
 
-/* Карточкалар */
+/* ========== КӘСІБИ КАРТОЧКАЛАР ========== */
 .card {
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
-  padding: 30px;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 28px;
   margin-bottom: 24px;
-  box-shadow: var(--shadow-xl);
-  transition: all var(--transition-base);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-xl);
+  transform: translateY(-2px);
+  border-color: rgba(99, 102, 241, 0.2);
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.2),
+    0 10px 10px -5px rgba(0, 0, 0, 0.1),
+    0 0 30px rgba(99, 102, 241, 0.1);
 }
 
 .card h2 {
   color: var(--text-primary);
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   font-size: 24px;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-/* Кестелер */
+/* ========== КӘСІБИ КЕСТЕЛЕР ========== */
+.table-container {
+  overflow-x: auto;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 4px;
+}
+
 .table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  margin-top: 20px;
-  background: var(--bg-secondary);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-}
-
-.table th,
-.table td {
-  padding: 16px;
-  text-align: left;
-  border-bottom: 1px solid #e2e8f0;
+  background: transparent;
+  font-size: 14px;
 }
 
 .table th {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-  color: var(--text-white);
+  background: linear-gradient(135deg, #3730a3 0%, #312e81 100%);
+  color: white;
+  padding: 16px;
+  text-align: left;
   font-weight: 600;
+  font-size: 11px;
   text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 0.5px;
+  letter-spacing: 1.5px;
+  border: none;
 }
 
-.table tr:last-child td {
+.table th:first-child {
+  border-radius: 10px 0 0 0;
+}
+
+.table th:last-child {
+  border-radius: 0 10px 0 0;
+}
+
+.table td {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: #cbd5e1;
+  vertical-align: middle;
+}
+
+.table tbody tr {
+  transition: all 0.2s ease;
+  background: transparent;
+}
+
+.table tbody tr:hover {
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.table tbody tr:hover td {
+  color: #f1f5f9;
+}
+
+.table tbody tr:last-child td {
   border-bottom: none;
 }
 
-.table tr {
-  transition: all var(--transition-fast);
+.table tbody tr:last-child td:first-child {
+  border-radius: 0 0 0 10px;
 }
 
-.table tr:hover {
-  background: linear-gradient(90deg, rgba(99, 102, 241, 0.05) 0%, rgba(99, 102, 241, 0.02) 100%);
-  transform: scale(1.01);
+.table tbody tr:last-child td:last-child {
+  border-radius: 0 0 10px 0;
+}
+
+.table strong {
+  color: #f8fafc;
+  font-weight: 600;
 }
 
 /* Loading */
@@ -287,13 +395,15 @@ code {
   60%, 100% { content: '...'; }
 }
 
-/* Хабарламалар */
+/* Хабарламалар - Glassmorphism */
 .error {
-  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-  color: #991b1b;
+  background: rgba(239, 68, 68, 0.15);
+  backdrop-filter: blur(10px);
+  color: #f87171;
   padding: 16px 20px;
   border-radius: var(--radius-md);
   margin-bottom: 20px;
+  border: 1px solid rgba(239, 68, 68, 0.3);
   border-left: 4px solid var(--danger-color);
   box-shadow: var(--shadow-md);
   display: flex;
@@ -302,11 +412,13 @@ code {
 }
 
 .success {
-  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-  color: #065f46;
+  background: rgba(16, 185, 129, 0.15);
+  backdrop-filter: blur(10px);
+  color: #34d399;
   padding: 16px 20px;
   border-radius: var(--radius-md);
   margin-bottom: 20px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
   border-left: 4px solid var(--success-color);
   box-shadow: var(--shadow-md);
   display: flex;
@@ -315,11 +427,13 @@ code {
 }
 
 .info {
-  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-  color: #1e40af;
+  background: rgba(59, 130, 246, 0.15);
+  backdrop-filter: blur(10px);
+  color: #60a5fa;
   padding: 16px 20px;
   border-radius: var(--radius-md);
   margin-bottom: 20px;
+  border: 1px solid rgba(59, 130, 246, 0.3);
   border-left: 4px solid var(--info-color);
   box-shadow: var(--shadow-md);
   display: flex;

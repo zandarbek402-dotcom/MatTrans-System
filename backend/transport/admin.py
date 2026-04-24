@@ -24,3 +24,4 @@ class TransportHistoryAdmin(admin.ModelAdmin):
     search_fields = ['route__material__name', 'location']
     readonly_fields = ['created_at']
 
+

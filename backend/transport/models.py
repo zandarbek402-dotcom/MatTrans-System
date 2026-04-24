@@ -83,3 +83,4 @@ class TransportHistory(models.Model):
     def __str__(self):
         return f"{self.route} - {self.location} ({self.created_at})"
 
+
